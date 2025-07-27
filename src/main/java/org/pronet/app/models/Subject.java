@@ -9,6 +9,11 @@ public class Subject extends BaseModel {
     public Subject() {
     }
 
+    public Subject(String name, Long teacherId) {
+        this.name = name;
+        this.teacherId = teacherId;
+    }
+
     public Subject(Long id, String name, Long teacherId) {
         super(id);
         this.name = name;
