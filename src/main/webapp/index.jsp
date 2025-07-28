@@ -8,15 +8,29 @@
     final TeacherService teacherService = new TeacherService();
     final long id = ParameterUtil.getLongValue(request.getParameter("id"));
     final String actionType = ParameterUtil.getStringValue(request.getParameter("actionType"));
+    String firstName = ParameterUtil.getStringValue(request.getParameter("firstName"));
+    String lastName = ParameterUtil.getStringValue(request.getParameter("lastName"));
+    String email = ParameterUtil.getStringValue(request.getParameter("email"));
+    List<Teacher> teachers;
 
-    if (actionType.equalsIgnoreCase("remove")) {
+    if (actionType.equalsIgnoreCase("create")) {
+        Teacher teacher = new Teacher();
+        teacher.setFirstName(firstName).setLastName(lastName).setEmail(email);
+        teacherService.create(teacher);
+        firstName = ""; lastName = ""; email = "";
+        teachers = teacherService.getAll();
+    } else if (actionType.equalsIgnoreCase("edit")) {
+        Teacher teacher = new Teacher();
+        teacher.setFirstName(firstName).setLastName(lastName).setEmail(email);
+        teacherService.update(id, teacher);
+        firstName = ""; lastName = ""; email = "";
+        teachers = teacherService.getAll();
+    } else if (actionType.equalsIgnoreCase("remove")) {
         teacherService.deleteById(id);
+        teachers = teacherService.getAll();
+    } else {
+        teachers = teacherService.getAll(firstName, lastName, email);
     }
-
-    final String firstName = ParameterUtil.getStringValue(request.getParameter("firstName"));
-    final String lastName = ParameterUtil.getStringValue(request.getParameter("lastName"));
-    final String email = ParameterUtil.getStringValue(request.getParameter("email"));
-    final List<Teacher> teachers = teacherService.getAll(firstName, lastName, email);
 %>
 
 <html lang="en">
@@ -30,12 +44,14 @@
 <div class="container">
     <h3 class="text-center">Teachers</h3>
     <br>
+    <a href="views/teacher/create-teacher.jsp" class="btn btn-outline-primary">Create</a>
+    <br> <br>
     <% if (teachers.isEmpty()) { %>
         <div class="alert alert-danger" role="alert">
             There is no teacher in system!
         </div>
     <% } else { %>
-        <form action="">
+        <form method="get">
             <div class="row">
                 <div class="col">
                     <input type="text" class="form-control" id="firstName" name="firstName"
@@ -54,7 +70,6 @@
                 </div>
             </div>
         </form>
-
         <br>
         <table class="table table-bordered">
         <thead>
@@ -74,10 +89,15 @@
             <td><%= teacher.getLastName() %></td>
             <td><%= teacher.getEmail() %></td>
             <td>
-                <a href="#" class="btn btn-outline-info">Details</a>
-                <a href="#" class="btn btn-outline-success">Edit</a>
+                <a href="views/teacher/teacher-details.jsp?id=<%= teacher.getId() %>" class="btn btn-outline-info">
+                    Details
+                </a>
+                <a href="views/teacher/edit-teacher.jsp?id=<%= teacher.getId() %>" class="btn btn-outline-success">
+                    Edit
+                </a>
                 <a href="views/teacher/remove-teacher.jsp?id=<%= teacher.getId() %>" class="btn btn-outline-danger">
-                    Remove</a>
+                    Remove
+                </a>
             </td>
         </tr>
         <% } %>
