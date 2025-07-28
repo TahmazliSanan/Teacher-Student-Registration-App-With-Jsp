@@ -92,13 +92,13 @@ public class TeacherService implements BaseRepository<Teacher> {
     }
 
     @Override
-    public void update(Teacher teacher) {
+    public void update(Long id, Teacher teacher) {
         try (PreparedStatement statement = DbConnectionUtil.getConnection()
                 .prepareStatement("update teachers set first_name = ?, last_name = ?, email = ? where id = ?")) {
             statement.setString(1, teacher.getFirstName());
             statement.setString(2, teacher.getLastName());
             statement.setString(3, teacher.getEmail());
-            statement.setLong(4, teacher.getId());
+            statement.setLong(4, id);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

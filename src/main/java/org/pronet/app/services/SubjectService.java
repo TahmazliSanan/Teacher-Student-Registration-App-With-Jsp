@@ -55,12 +55,12 @@ public class SubjectService implements BaseRepository<Subject> {
     }
 
     @Override
-    public void update(Subject subject) {
+    public void update(Long id, Subject subject) {
         try (PreparedStatement statement = DbConnectionUtil.getConnection()
                 .prepareStatement("update subjects set name = ?, teacher_id = ? where id = ?")) {
             statement.setString(1, subject.getName());
             statement.setLong(2, subject.getTeacherId());
-            statement.setLong(3, subject.getId());
+            statement.setLong(3, id);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
