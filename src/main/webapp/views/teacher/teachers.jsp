@@ -1,36 +1,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.pronet.app.models.Teacher" %>
-<%@ page import="org.pronet.app.services.TeacherService" %>
 <%@ page import="org.pronet.app.utils.ParameterUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%
-    final TeacherService teacherService = new TeacherService();
-    final long id = ParameterUtil.getLongValue(request.getParameter("id"));
-    final String actionType = ParameterUtil.getStringValue(request.getParameter("actionType"));
     String firstName = ParameterUtil.getStringValue(request.getParameter("firstName"));
     String lastName = ParameterUtil.getStringValue(request.getParameter("lastName"));
     String email = ParameterUtil.getStringValue(request.getParameter("email"));
-    List<Teacher> teachers;
-
-    if (actionType.equalsIgnoreCase("create")) {
-        Teacher teacher = new Teacher();
-        teacher.setFirstName(firstName).setLastName(lastName).setEmail(email);
-        teacherService.create(teacher);
-        firstName = ""; lastName = ""; email = "";
-        teachers = teacherService.getAll();
-    } else if (actionType.equalsIgnoreCase("edit")) {
-        Teacher teacher = new Teacher();
-        teacher.setFirstName(firstName).setLastName(lastName).setEmail(email);
-        teacherService.update(id, teacher);
-        firstName = ""; lastName = ""; email = "";
-        teachers = teacherService.getAll();
-    } else if (actionType.equalsIgnoreCase("remove")) {
-        teacherService.deleteById(id);
-        teachers = teacherService.getAll();
-    } else {
-        teachers = teacherService.getAll(firstName, lastName, email);
-    }
+    List<Teacher> teachers = (List<Teacher>) request.getAttribute("teachers");
 %>
 
 <html lang="en">
