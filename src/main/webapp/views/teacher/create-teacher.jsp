@@ -12,7 +12,7 @@
     <h3 class="text-center">Create teacher</h3>
     <br>
     <br>
-    <form action="../../index.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/teacher" method="post">
         <input type="hidden" id="actionType" name="actionType" value="create">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
@@ -28,7 +28,7 @@
         </div>
         <div class="form-floating mb-3">
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="../../index.jsp" class="btn btn-dark">Back</a>
+            <a href="${pageContext.request.contextPath}/teacher" class="btn btn-dark">Back</a>
         </div>
     </form>
 </div>

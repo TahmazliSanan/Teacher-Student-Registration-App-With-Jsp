@@ -29,7 +29,7 @@
                 <b>First name:</b> <%= foundTeacher.getFirstName() %> <br>
                 <b>Last name:</b> <%= foundTeacher.getLastName() %> <br>
                 <b>Email:</b> <%= foundTeacher.getEmail() %> <br> <br>
-                <a href="../../index.jsp" class="btn btn-dark">Back</a>
+                <a href="${pageContext.request.contextPath}/teacher" class="btn btn-dark">Back</a>
             </p>
         </div>
     </div>

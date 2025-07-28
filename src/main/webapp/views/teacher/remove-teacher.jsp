@@ -19,7 +19,7 @@
 <body>
 <div class="container">
     <h3>Are you sure to remove teacher?</h3>
-    <form action="../../index.jsp">
+    <form action="${pageContext.request.contextPath}/teacher" method="post">
         <input type="hidden" id="id" name="id" value="<%= id %>">
         <input type="hidden" id="actionType" name="actionType" value="remove">
         <div class="form-floating mb-3">
@@ -39,7 +39,7 @@
         </div>
         <div class="form-floating mb-3">
             <button type="submit" class="btn btn-danger">Yes</button>
-            <a href="../../index.jsp" class="btn btn-dark">No</a>
+            <a href="${pageContext.request.contextPath}/teacher" class="btn btn-dark">No</a>
         </div>
     </form>
 </div>

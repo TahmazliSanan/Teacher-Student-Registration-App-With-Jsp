@@ -21,7 +21,7 @@
     <h3 class="text-center">Edit teacher</h3>
     <br>
     <br>
-    <form action="../../index.jsp" method="post">
+    <form action="${pageContext.request.contextPath}/teacher" method="post">
         <input type="hidden" id="id" name="id" value="<%= id %>">
         <input type="hidden" id="actionType" name="actionType" value="edit">
         <div class="form-floating mb-3">
@@ -41,7 +41,7 @@
         </div>
         <div class="form-floating mb-3">
             <button type="submit" class="btn btn-success">Save</button>
-            <a href="../../index.jsp" class="btn btn-dark">Back</a>
+            <a href="${pageContext.request.contextPath}/teacher" class="btn btn-dark">Back</a>
         </div>
     </form>
 </div>
